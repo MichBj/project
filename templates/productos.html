@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-4xl font-extrabold text-gray-800 mb-8 text-center">Inventario de Productos</h1>
+
+<div class="bg-white shadow-xl rounded-lg overflow-hidden">
+    {% if productos %}
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Precio</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for producto in productos %}
+                <tr class="hover:bg-gray-50 transition duration-150">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ producto.id_producto }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ producto.nombre }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${{ "{:,.2f}".format(producto.precio) }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                              {% if producto.stock > 50 %} bg-green-100 text-green-800
+                              {% elif producto.stock > 10 %} bg-yellow-100 text-yellow-800
+                              {% else %} bg-red-100 text-red-800
+                              {% endif %}">
+                            {{ producto.stock }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center space-x-2">
+                        <a href="{{ url_for('editar', id=producto.id_producto) }}" class="text-indigo-600 hover:text-indigo-900 font-semibold transition duration-150">Editar</a>
+                        <a href="{{ url_for('eliminar', id=producto.id_producto) }}" class="text-red-600 hover:text-red-900 font-semibold transition duration-150">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="p-6 text-center text-gray-500">
+        <p class="text-lg mb-4">No hay productos registrados. ¡Añade el primero!</p>
+        <a href="{{ url_for('crear') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 transition duration-300">
+            Añadir Producto
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

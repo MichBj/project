@@ -1,0 +1,26 @@
+/* Estilo personalizado para el encabezado */
+.main-header {
+    background-color: #1a3c5e; /* Color azul oscuro personalizado */
+}
+
+/* Estilo para el botón de alerta */
+#alertButton {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+/* Ajuste para imágenes de tamaño medio en el carrusel */
+.img-medium {
+    max-width: 50%; /* Tamaño medio del ancho */
+    height: 200px; /* Altura fija para consistencia */
+    object-fit: cover; /* Ajusta la imagen para llenar el espacio */
+    margin: 0 auto; /* Centra la imagen horizontalmente */
+}
+
+/* Ajuste responsivo para el carrusel */
+@media (max-width: 768px) {
+    .img-medium {
+        max-width: 100%; /* Ocupa el 100% en móviles */
+        height: auto; /* Mantiene proporción en móviles */
+    }
+}

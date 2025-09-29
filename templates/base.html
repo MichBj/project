@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Productos | PG</title>
+    <!-- Carga de Tailwind CSS para el estilo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Enlace al archivo de estilos externos (static/css/styles.css) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    
+    <style>
+        /* Estilos para los mensajes flash (manteniendo la apariencia de Bootstrap) */
+        .alert {
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: 0.5rem; /* Usando 0.5rem para rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        /* Clase personalizada para el contenedor principal */
+        .container-main {
+            min-height: calc(100vh - 4rem); /* Altura mínima de la vista - altura del nav */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- La clase 'main-header' aplica el color oscuro desde styles.css -->
+    <nav class="main-header p-4 shadow-md sticky top-0 z-10 h-16 flex items-center">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Enlace de la marca, ahora apunta a la página de inicio ('index') -->
+            <a href="{{ url_for('index') }}" class="text-white text-2xl font-bold tracking-wider hover:text-indigo-400 transition duration-300">
+                PG Stock
+            </a>
+            <div class="space-x-4">
+                <!-- Enlace de 'Ver Productos' -->
+                <a href="{{ url_for('productos') }}" class="text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition duration-300">
+                    Ver Productos
+                </a>
+                <!-- Enlace de 'Crear Nuevo' -->
+                <a href="{{ url_for('crear') }}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition duration-300 shadow-md">
+                    Crear Nuevo
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="container mx-auto p-4 md:p-8 container-main">
+        <!-- Contenedor para mensajes Flash -->
+        <div class="max-w-4xl mx-auto">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} rounded-lg mb-4" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+        
+        <!-- Bloque donde se inyecta el contenido de las otras plantillas -->
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer class="bg-gray-800 text-white text-center p-4">
+        <p class="text-sm">&copy; 2024 Gestión de Productos. Desarrollado con Flask y MySQL.</p>
+    </footer>
+</body>
+</html>
