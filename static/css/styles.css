@@ -24,3 +24,12 @@
         height: auto; /* Mantiene proporción en móviles */
     }
 }
+
+/* Estilos adicionales para consistencia en la app */
+body {
+    font-family: 'Inter', sans-serif; /* Fuente moderna si Tailwind no la carga */
+}
+
+.table-hover tr:hover {
+    background-color: #f9fafb;
+}

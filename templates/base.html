@@ -44,14 +44,30 @@
                 PG Stock
             </a>
             <div class="space-x-4">
-                <!-- Enlace de 'Ver Productos' -->
-                <a href="{{ url_for('productos') }}" class="text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition duration-300">
-                    Ver Productos
-                </a>
-                <!-- Enlace de 'Crear Nuevo' -->
-                <a href="{{ url_for('crear') }}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition duration-300 shadow-md">
-                    Crear Nuevo
-                </a>
+                {% if 'user_id' in session %}
+                    <!-- Logueado: Muestra enlaces principales y logout -->
+                    <span class="text-white text-sm">¡Hola, {{ session.username }}!</span>
+                    <a href="{{ url_for('productos') }}" class="text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition duration-300">
+                        Ver Productos
+                    </a>
+                    <a href="{{ url_for('crear_usuario') }}" class="text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition duration-300">
+                        Crear Usuario
+                    </a>
+                    <a href="{{ url_for('crear') }}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition duration-300 shadow-md">
+                        Crear Nuevo
+                    </a>
+                    <a href="{{ url_for('ventas') }}" class="text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition duration-300">
+                        Ventas
+                    </a>
+                    <a href="{{ url_for('logout') }}" class="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition duration-300 shadow-md">
+                        Cerrar Sesión
+                    </a>
+                {% else %}
+                    <!-- No logueado: Solo login -->
+                    <a href="{{ url_for('login') }}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition duration-300 shadow-md">
+                        Iniciar Sesión
+                    </a>
+                {% endif %}
             </div>
         </div>
     </nav>
